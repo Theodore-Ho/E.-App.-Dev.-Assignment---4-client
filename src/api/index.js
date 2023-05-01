@@ -45,5 +45,12 @@ export default {
                 id: id
             }
         })
+    },
+    editProductById(product) {
+        return request({
+            url: "/product",
+            method: "put",
+            data: product
+        })
     }
 }

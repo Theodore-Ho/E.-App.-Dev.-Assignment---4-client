@@ -1,6 +1,7 @@
 import axios from "axios";
 import {Loading, Message} from "element-ui";
 import Vue from "vue";
+import $ from "jquery";
 let loadingInstance;
 let timestampStart = 0;
 
@@ -35,7 +36,7 @@ service.interceptors.response.use(
     response => {
         const timestampEnd = Date.now();
         const response_time = Math.abs(timestampEnd - timestampStart);
-        console.log(response_time);
+        $("#response-time").html(response_time);
         loadingInstance.close();
         if (response.status === 200) {
             if(response.data.status === 500) { // custom response code

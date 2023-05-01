@@ -5,7 +5,6 @@ import store from './store'
 import './assets/reset.css'
 import './plugins/element'
 import 'element-ui/lib/theme-chalk/index.css'
-import './plugins/fontawesome'
 import api from './api'
 import 'babel-polyfill'
 

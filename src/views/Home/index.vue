@@ -34,7 +34,7 @@
         <div class="title">{{ item.title }}</div>
         <div class="price-area">
           <span class="price">€ {{ item.price }}</span>
-          <span class="discount">{{ item.discountPercentage }} % <font-awesome-icon :icon="['fas', 'down-long']" /></span>
+          <span class="discount">{{ item.discountPercentage }} % <i class="el-icon-bottom"></i></span>
         </div>
         <div class="rating">
           <el-rate

@@ -1,8 +1,7 @@
 <template>
   <div class="app">
     <div class="fixed-info">
-      <div class="fixed-info-left">Server based in Hong Kong: <a href="https://product.yuhong.me">product.yuhong.me</a></div>
-      <div class="fixed-info-right">Current response time: <span style="color: red" id="response-time">0</span> ms</div>
+      <span>Server based in Hong Kong: <a href="https://product.yuhong.me">product.yuhong.me</a>. Current response time: <span style="color: red" id="response-time">0</span> ms.</span>
     </div>
     <div class="container">
       <div class="content">
@@ -53,22 +52,26 @@ export default {
       background-color: #f8f8f8;
     }
   }
-  .fixed-info {
-    position: fixed;
-    top: 10px;
-    font-size: 1.2em;
-    z-index: 999;
-    .fixed-info-left {
+  @media (min-width: 998px) {
+    .fixed-info {
       position: fixed;
+      top: 10px;
       left: 20px;
       display: block;
       background-color: #FFFFFF;
+      font-size: 1.2em;
+      z-index: 999;
     }
-    .fixed-info-right {
+  }
+  @media (max-width: 998px) {
+    .fixed-info {
       position: fixed;
-      right: 20px;
+      bottom: 40px;
+      left: 20px;
       display: block;
       background-color: #FFFFFF;
+      font-size: 1.2em;
+      z-index: 999;
     }
   }
 }

@@ -1,7 +1,7 @@
 import request from "@/utils/request";
 
 export default {
-    getProductsByPage(page, limit, filter) {
+    getProducts(page, limit, filter) {
         return request({
             url: "/products",
             method: "get",
@@ -9,6 +9,15 @@ export default {
                 page: page,
                 limit: limit,
                 categories: filter
+            }
+        })
+    },
+    getProductById(id) {
+        return request({
+            url: "/product",
+            method: "get",
+            params: {
+                id: id
             }
         })
     },

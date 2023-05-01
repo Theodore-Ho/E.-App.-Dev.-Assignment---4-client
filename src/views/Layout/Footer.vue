@@ -2,7 +2,7 @@
   <div class="footer-app">
     <span>© MIT license</span>
     <el-divider direction="vertical"></el-divider>
-    <a href="#">GitHub</a>
+    <a href="https://github.com/Theodore-Ho/E.-App.-Dev.-Assignment---4-client">GitHub</a>
     <el-divider direction="vertical"></el-divider>
     <a href="mailto:he@yuhong.me">he@yuhong.me</a>
   </div>

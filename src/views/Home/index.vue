@@ -11,7 +11,7 @@
             style="width: 90%"
             placeholder="Filter by category"
             @change="getCategory"
-            :remote-method="remoteMethod"
+            :remote-method="searchCategory"
             :loading="loading">
           <el-option
               v-for="item in options"
@@ -29,7 +29,7 @@
       <div class="item" v-for="item in products" @click="$router.push({ name: 'ProductDetail', params: { id: item.id } })">
         <img class="image" :src="item.thumbnail" alt="Product Image"/>
         <div class="category">
-          <span class="tag">{{ item.category }}</span>
+          <el-tag type="success" size="small">{{ item.category }}</el-tag>
         </div>
         <div class="title">{{ item.title }}</div>
         <div class="price-area">
@@ -51,7 +51,7 @@
       <el-pagination
           v-if="!smallPagination"
           background
-          pager-count="5"
+          :pager-count="5"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -63,7 +63,7 @@
       <el-pagination
           v-if="smallPagination"
           background
-          pager-count="5"
+          :pager-count="5"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -106,12 +106,14 @@ export default {
   methods: {
     ...mapMutations(['setPage', 'setLimit', 'setFilter']),
     async generateProductList() {
-      let res = await this.$api.getProductsByPage(this.page, this.limit, Array.from(this.filter).toString());
-      this.products = res.data.data.products;
-      this.currentPage = res.data.data.page;
-      this.currentLimit = res.data.data.limit;
-      this.pageTotal = res.data.data.pageTotal;
-      this.dataTotal = res.data.data.dataTotal;
+      let res = await this.$api.getProducts(this.page, this.limit, Array.from(this.filter).toString());
+      if(res.data.status === 200) {
+        this.products = res.data.data.products;
+        this.currentPage = res.data.data.page;
+        this.currentLimit = res.data.data.limit;
+        this.pageTotal = res.data.data.pageTotal;
+        this.dataTotal = res.data.data.dataTotal;
+      }
     },
     handleSizeChange(val) {
       this.setPage(1); // avoid passing over
@@ -122,7 +124,7 @@ export default {
       this.setPage(val);
       this.generateProductList();
     },
-    remoteMethod(str) {
+    searchCategory(str) {
       if (str !== '') {
         this.loading = true;
         this.doSearchCategory(str);
@@ -207,14 +209,6 @@ export default {
       margin-right: 10px;
       margin-top: 7px;
       text-align: right;
-      .tag {
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-size: 0.8em;
-        font-weight: bold;
-        color: #fff;
-        background-color: green;
-      }
     }
     .title {
       margin-top: 6px;

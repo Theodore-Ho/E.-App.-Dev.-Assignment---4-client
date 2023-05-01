@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     page: 1, // default page 1
-    limit: 12, // default 12 items a page,
+    limit: 12, // default 12 items a page
     filter: [], // default empty filter
   },
   getters: {

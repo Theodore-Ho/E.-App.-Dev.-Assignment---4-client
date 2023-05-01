@@ -23,17 +23,17 @@ const routes = [
         component: HomeView
       },
       {
-        path: '/product/new',
+        path: '/new',
         name: 'NewProduct',
         component: NewProduct
       },
       {
-        path: '/products/:id',
+        path: '/product/:id',
         name: 'ProductDetail',
         component: ProductView
       },
       {
-        path: '/products/edit/:id',
+        path: '/edit/:id',
         name: 'EditProduct',
         component: EditProduct
       }

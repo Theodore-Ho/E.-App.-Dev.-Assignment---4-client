@@ -1,24 +1,48 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Layout from '../views/Layout/index.vue'
+import HomeView from '../views/Home/index.vue'
+import ProductView from '../views/Product/index.vue'
+import NewProduct from "@/views/Product/NewProduct.vue";
+import EditProduct from "@/views/Product/EditProduct.vue";
+import NotFound from "@/views/404"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    component: Layout,
+    meta: {
+      title: 'Home'
+    },
+    children: [
+      {
+        path: '/',
+        name: 'Home',
+        component: HomeView
+      },
+      {
+        path: '/product/new',
+        name: 'NewProduct',
+        component: NewProduct
+      },
+      {
+        path: '/products/:id',
+        name: 'ProductDetail',
+        component: ProductView
+      },
+      {
+        path: '/products/edit/:id',
+        name: 'EditProduct',
+        component: EditProduct
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 

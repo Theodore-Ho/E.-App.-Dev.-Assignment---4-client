@@ -83,7 +83,8 @@ import {
   Descriptions,
   DescriptionsItem,
   Empty,
-  Statistic
+  Statistic,
+  Popconfirm
 } from 'element-ui';
 
 Vue.use(Pagination);
@@ -164,6 +165,7 @@ Vue.use(Descriptions);
 Vue.use(DescriptionsItem);
 Vue.use(Empty);
 Vue.use(Statistic);
+Vue.use(Popconfirm);
 
 Vue.use(Loading.directive);
 locale.use(lang);

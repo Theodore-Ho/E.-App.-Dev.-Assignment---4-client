@@ -29,5 +29,21 @@ export default {
                 q: query
             }
         })
+    },
+    insertNewProduct(product) {
+        return request({
+            url: "/product",
+            method: "post",
+            data: product
+        })
+    },
+    deleteProductById(id) {
+        return request({
+            url: "/product",
+            method: "delete",
+            params: {
+                id: id
+            }
+        })
     }
 }

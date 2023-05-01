@@ -22,7 +22,13 @@
         <el-descriptions :title="product.title" :column="2">
           <template slot="extra">
             <el-button type="primary" size="small" @click="$router.push({ name: 'EditProduct', params: { id: product.id } })">Edit</el-button>
-            <el-button type="danger" size="small">Delete</el-button>
+            <el-divider direction="vertical"></el-divider>
+            <el-popconfirm
+                @confirm="deleteProduct"
+                title="Confirm to delete?"
+            >
+              <el-button slot="reference" type="danger" size="small">Delete</el-button>
+            </el-popconfirm>
           </template>
           <el-descriptions-item label="Brand">{{ product.brand }}</el-descriptions-item>
           <el-descriptions-item label="Price">{{ product.price }}</el-descriptions-item>
@@ -86,6 +92,34 @@ export default {
       this.setPage(1); // avoid passing over
       this.setFilter(Array.of(this.product.category));
       this.$router.push({ name: "Home" });
+    },
+    deleteProduct() {
+      this.doDelete(this.productId);
+    },
+    async doDelete(id) {
+      const timestampStart = Date.now();
+      let res = await this.$api.deleteProductById(id);
+      if(res.data.status === 200) {
+        const timestampEnd = Date.now();
+        const response_time = Math.abs(timestampEnd - timestampStart);
+        this.$message({
+          showClose: true,
+          duration: 10000,
+          message: "Delete success, response time " + response_time + " MS",
+          type: 'success'
+        });
+        this.setPage(1); // avoid passing over
+        await this.$router.push({name: 'Home'});
+      } else if(res.data.status === 404) {
+        this.$message({
+          showClose: true,
+          duration: 10000,
+          message: "Product not exist, maybe has been deleted",
+          type: 'error'
+        });
+        this.setPage(1); // avoid passing over
+        await this.$router.push({name: 'Home'});
+      }
     }
   }
 }
@@ -98,7 +132,7 @@ export default {
     margin-left: 10px;
   }
   .container {
-    min-height: 580px;
+    margin-top: 50px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 20px;

@@ -38,10 +38,14 @@ service.interceptors.response.use(
         console.log(response_time);
         loadingInstance.close();
         if (response.status === 200) {
-            if(response.data.status === 200) { // custom response code
+            if(response.data.status === 500) { // custom response code
+                Vue.prototype.$alert(response.data.data, "ERROR", {
+                    confirmButtonText: "Confirm",
+                    callback: () => {}
+                }).then(() => {});
+                return Promise.reject(response);
+            } else { // case others
                 return Promise.resolve(response);
-            } else {
-                console.log("abc")
             }
         } else {
             Vue.prototype.$alert("Unexpected Results", {
